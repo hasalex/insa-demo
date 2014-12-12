@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context distributable="true" docBase="/home/alexis/formation/aj-jboss/wsmvn/message-web/target/message">
+    <ResourceLink name="jdbc/sewa-ds"
+                  global="jdbc/sewa-global-ds"
+                  type="javax.sql.Datasource"/>
+</Context>
