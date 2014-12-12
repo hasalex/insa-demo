@@ -4,11 +4,11 @@
 <%@ page import="org.apache.log4j.Logger" %>
 
 <%! private MessageService service;
-    private Logger log = Logger.getLogger("jsp.message");
+    private Logger log = Logger.getLogger("fr.sewatech.jsp.message");
 %>
+
 <%
     if (service == null) {
-    	// Instanciation de la couche métier
     	service = new MessageServiceImpl();
     }
 	    
@@ -16,6 +16,7 @@
 	if (id == null) {
 		id = "0";
 	}
+	log.debug("Asking for message " + id + " to " + service.getClass().getName());
 	Message message = service.getMessage(Integer.parseInt(id));
 %>
 

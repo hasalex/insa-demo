@@ -53,15 +53,14 @@
         <servlet-name>MessageServlet</servlet-name>
     </filter-mapping>
 
-    <!--
+<!--
     <resource-ref>
         <res-ref-name>jdbc/sewa-ds</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
-        &lt;!&ndash;<lookup-name>java:jboss/datasources/SewaDS</lookup-name>&ndash;&gt;
-        <lookup-name>jdbc/sewa-global-ds</lookup-name>
+        <lookup-name>java:jboss/datasources/MySQLDS</lookup-name>
     </resource-ref>
-    -->
+-->
 
     <!--
     <resource-ref>

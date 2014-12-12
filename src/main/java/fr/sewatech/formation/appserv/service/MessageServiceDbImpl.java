@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NameNotFoundException;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -114,7 +115,43 @@ public class MessageServiceDbImpl implements MessageService {
             close(cx);
 		}
 	}
-	
+
+	public void init() {
+		log.debug("Initialisation des messages");
+		try (Connection cx = getConnection()) {
+
+			PreparedStatement exists = cx.prepareStatement("show tables like ?");
+			exists.setString(1, "Message");
+			ResultSet resultSet = exists.executeQuery();
+			if (resultSet.next()) {
+				log.info("La table Message existe déjà.");
+				return;
+			}
+
+			log.info("Creating Message table");
+			PreparedStatement create = cx.prepareStatement("CREATE TABLE Message (" +
+					"  ID int(11) NOT NULL," +
+					"  MESSAGE varchar(30) NOT NULL," +
+					"  PRIMARY KEY  (ID)" +
+					") ENGINE=InnoDB DEFAULT CHARSET=latin1");
+			create.executeUpdate();
+
+			PreparedStatement st = cx.prepareStatement("insert into Message (id, message) values (?, ?)");
+
+			for (int i = 0; i < 5; i++) {
+				st.setLong(1, i);
+				st.setString(2, "Message " + i);
+				st.executeUpdate();
+			}
+		} catch (NameNotFoundException e) {
+			log.info("Pas de connexion à la base de données");
+		} catch (Exception e) {
+			log.debug("Problème...", e);
+			throw new SewaException(e);
+		}
+	}
+
+
 	private Connection getConnection() throws NamingException, SQLException {
 		Connection cx;
 		ds = (DataSource) namingContext.lookup(dataSourceName);

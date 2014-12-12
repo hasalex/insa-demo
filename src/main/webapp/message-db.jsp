@@ -4,7 +4,7 @@
 <%@ page import="org.apache.log4j.Logger" %>
 
 <%! private MessageService service;
-    private Logger log = Logger.getLogger("jsp.message_db");
+    private Logger log = Logger.getLogger("fr.sewatech.jsp.message_db");
 %>
 
 <%
@@ -16,6 +16,7 @@
 	if (id == null) {
 	   	id = "0";
 	}
+	log.debug("Asking for message " + id + " to " + service.getClass().getName());
 	Message message = service.getMessage(Integer.parseInt(id));
 %>
 
