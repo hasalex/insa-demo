@@ -40,7 +40,7 @@ Prepare the instance
 * Create the instance and log in
 
 
-    gcloud compute instances create insa-demo --image ubuntu-14-10-java8 --network wf
+    gcloud compute instances create insa-demo --image ubuntu-14-10-java8 --machine-type f1-micro --network wf
     gcloud compute ssh insa-demo
 
 
@@ -92,7 +92,6 @@ Configure Apache
     sudo ln -s /etc/apache2/mods-available/proxy_http.conf /etc/apache2/mods-enabled/
 
 
-
 Connect to the DB
 ===============
 
@@ -129,14 +128,13 @@ Connect to the DB
     data-source add --name=MySQLDS --jndi-name=java:jboss/datasources/MySQLDS --connection-url=jdbc:mysql://localhost:3306/insademo --user-name=insademo --password=insademo --driver-name=mysql
 
 
-
 Clean
 ------------
 
 Remove the instance, at the end of the demo
 
 
-    gcloud compute instances delete insa-demo --delete-disks all
+     gcloud compute instances delete insa-demo --delete-disks all
 
 
 Run the example on Open Shift
